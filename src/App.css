@@ -1,41 +1,115 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+body {
+  background-color: #e8e8e8;
 }
+
+/* Page wrapper*/
+.App-wrapper {
+  width: 100vw;
+  padding: 2em;
+  margin: auto;
+
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 100%;
+  grid-template-areas:
+    "header"
+    "intro"
+    "categories"
+    "showbutton"
+    "tabs"
+    "art";
+}
+
+@media only screen and (min-width: 1000px) {
+  .App-wrapper {
+    display: grid;
+    max-width: 50%;
+    grid-template-rows: repeat(1fr, 5);
+    grid-template-columns: 100%;
+    grid-template-areas:
+      "header header"
+      "intro intro"
+      "tabs tabs"
+      "art art"
+      "categories showbutton";
+  }
+}
+/* Grid area wrappers */
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
+  grid-area: header;
+  width: 100%;
+  background-color: red;
 }
 
 .App-intro {
-  font-size: large;
+  grid-area: intro;
+  width: 100%;
+  background-color: blue;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App-categories {
+  grid-area: categories;
+  width: 100%;
+  background-color: orange;
 }
 
-#artwork-image {
-  width: 30em;
-  margin: auto;
+.App-show-button {
+  grid-area: showbutton;
+  width: 100%;
+  background-color: purple;
 }
-#artwork-poem {
+
+.App-tabs {
+  grid-area: tabs;
+  width: 100%;
+  background-color: pink;
+}
+
+.App-art {
+  grid-area: art;
+  width: 100%;
+  background-color: white;
+
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media only screen and (min-width: 1000px) {
+}
+
+/* Content */
+
+.App-artwork-media {
+  grid-area: image;
+  margin: auto;
+  width: 100%;
+  flex-basis: 100%;
+}
+
+.App-artwork-poem {
+  grid-area: poem;
   width: 30em;
   margin: auto;
+  width: 100%;
+  flex-basis: 100%;
+}
+
+.App-artwork-poem > pre {
+  white-space: pre-wrap;
+  font-family: inherit;
+}
+
+@media only screen and (min-width: 1000px) {
+  .App-artwork-media {
+    flex-basis: 50%;
+  }
+
+  .App-artwork-poem {
+    flex-basis: 50%;
+  }
 }
