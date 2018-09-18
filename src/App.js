@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 // Filene skal lastes kun hvis de benyttes. Dvs. at filer brukt i en
@@ -113,12 +112,52 @@ class App extends Component {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
-  generateRandomArtwork = (id, svgCategory, poemCategory, soundCategory) => {
-    let svgId = this.getRandomInteger(0, 3);
-    let poemId = this.getRandomInteger(0, 3);
-    let soundId = this.getRandomInteger(0, 3);
+  clearArtworks = () => {
+    // Run this function on generating a new set of artworks.
+    this.setState({
+      artworks: {
+        1: { svg: null, poem: null, sound: null },
+        2: { svg: null, poem: null, sound: null },
+        3: { svg: null, poem: null, sound: null },
+        4: { svg: null, poem: null, sound: null }
+      }
+    });
+  };
 
-    console.log("svg", this.state.svg[svgCategory][svgId]);
+  itemHasBeenUsed = (selfId, type, checkRefId) => {
+    let isUsed = true;
+    Object.keys(this.state.artworks).forEach(artworkId => {
+      if (!artworkId === selfId) {
+        if (this.state.artworks[artworkId][type] === checkRefId) {
+        }
+      }
+    });
+
+    return isUsed;
+  };
+
+  setItemRef = (artworkId, type, initialId) => {
+    let ref = initialId;
+    let count = 0;
+
+    // Check if the item has already been used in another artwork
+    while (!this.itemHasBeenUsed(artworkId, type, initialId) && count < 50) {
+      ref = this.getRandomInteger(0, 3);
+
+      // Prevent infinite loops
+      count++;
+      if (count === 100) {
+        console.log("Too many iterations");
+      }
+    }
+    return ref;
+  };
+
+  generateRandomArtwork = (id, svgCategory, poemCategory, soundCategory) => {
+    let svgId = this.setItemRef(id, "svg", this.getRandomInteger(0, 3));
+    let poemId = this.setItemRef(id, "poem", this.getRandomInteger(0, 3));
+    let soundId = this.setItemRef(id, "sound", this.getRandomInteger(0, 3));
+
     if (!this.state.svg[svgCategory][svgId]) {
       this.fetchSvg(svgCategory, `${svgId + 1}.svg`);
     }
@@ -126,19 +165,16 @@ class App extends Component {
       this.fetchPoems(poemCategory);
     }
 
-    this.setState(
-      state => ({
-        artworks: {
-          ...this.state.artworks,
-          [id]: {
-            svg: svgId,
-            poem: poemId,
-            sound: soundId
-          }
+    this.setState(state => ({
+      artworks: {
+        ...this.state.artworks,
+        [id]: {
+          svg: svgId,
+          poem: poemId,
+          sound: soundId
         }
-      }),
-      () => console.log("artworks", this.state.artworks[id])
-    );
+      }
+    }));
   };
 
   componentDidMount() {
@@ -147,25 +183,43 @@ class App extends Component {
   }
 
   render() {
-    const { poem, svg, sound, artworks, choices } = this.state;
-    console.log(poem);
+    const { poem, svg, artworks, choices } = this.state;
     return (
-      <div className="App">
+      <div className="App-wrapper">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Random art generator</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div className="App-intro">
+          <p>
+            This is an artwork generator that lets you select different
+            categories for sound, image and poem, and this page generates a
+            piece of art based on your choices.
+          </p>
 
-        <div
-          id="artwork-image"
-          dangerouslySetInnerHTML={{
-            __html: svg[choices.svg][artworks[1].svg]
-          }}
-        />
-        <div id="artwork-poem">{poem[choices.poem][artworks[1].poem]}</div>
+          <p>
+            To get started: <br />
+            Step 1: Choose categories <br />
+            Step 2: Press the "Show me my artworks!"-button
+          </p>
+        </div>
+
+        <div className="App-categories">Categories</div>
+
+        <div className="App-show-button">Show me my artworks!</div>
+
+        <div className="App-tabs"> 1 2 3 4 </div>
+        <div className="App-art">
+          <div
+            className="App-artwork-media"
+            dangerouslySetInnerHTML={{
+              __html: svg[choices.svg][artworks[1].svg]
+            }}
+          />
+
+          <div className="App-artwork-poem">
+            <pre>{poem[choices.poem][artworks[1].poem]}</pre>
+          </div>
+        </div>
       </div>
     );
   }
