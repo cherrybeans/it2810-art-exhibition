@@ -4,7 +4,7 @@
 
 body {
   background-color: #c4dac9;
-  font-family: 'Raleway', sans-serif
+  font-family: "Raleway", sans-serif;
 }
 
 /* Page wrapper*/
@@ -23,15 +23,14 @@ body {
     "categories"
     "showbutton"
     "tabs"
-    "art"
-    "music";
+    "art";
 }
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 600px) {
   .App-wrapper {
     display: grid;
     max-width: 50%;
-    grid-template-rows: repeat(1fr, 5);
+    grid-template-rows: 5em;
     grid-template-columns: 50% 50%;
     grid-template-areas:
       "header header"
@@ -78,9 +77,6 @@ body {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-}
-
-@media only screen and (min-width: 1000px) {
 }
 
 /* Content */
