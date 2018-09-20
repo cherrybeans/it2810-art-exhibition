@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import PlayButton from './components/PlayButton';
+import TabBar from './components/tab-bar/TabBar';
 
 // Filene skal lastes kun hvis de benyttes. Dvs. at filer brukt i en
 // kombinasjon først lastes når denne kombinasjonen vises (eksempelvis
@@ -227,7 +228,7 @@ class App extends Component {
 
         <div className="App-show-button">Show me my artworks!</div>
 
-        <div className="App-tabs"> 1 2 3 4 </div>
+        <div className="App-tabs"> <TabBar/> </div>
         <div className="App-art">
           <div
             className="App-artwork-media"
