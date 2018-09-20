@@ -11,12 +11,8 @@ class App extends Component {
     this.state = {
       isLoaded: false,
       error: null,
+      currentTab: 1,
 
-      choices: {
-        sound: "nature",
-        svg: "scary",
-        poem: "romance"
-      },
       // Storing of data. Once fetched, it is stored here.
       svg: {
         nature: [null, null, null, null],
@@ -49,9 +45,15 @@ class App extends Component {
           "http://localhost:3000/media/sound/scary/4.mp3"
         ]
       },
+      // The selected categories for each type of media
+      choices: {
+        sound: "nature",
+        svg: "scary",
+        poem: "romance"
+      },
 
       artworks: {
-        // reference to the elements
+        // Tab 1, 2, 3, 4. Reference to the elements
         1: { svg: null, poem: null, sound: null },
         2: { svg: null, poem: null, sound: null },
         3: { svg: null, poem: null, sound: null },
@@ -108,7 +110,7 @@ class App extends Component {
   };
 
   getRandomInteger = (min, max) => {
-    // Returns a random number between 1 and 10 (inclusive)
+    // Returns a random number between min and max (inclusive)
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
@@ -125,10 +127,13 @@ class App extends Component {
   };
 
   itemHasBeenUsed = (selfId, type, checkRefId) => {
-    let isUsed = true;
-    Object.keys(this.state.artworks).forEach(artworkId => {
-      if (!artworkId === selfId) {
-        if (this.state.artworks[artworkId][type] === checkRefId) {
+    const { artworks } = this.state;
+    let isUsed = false;
+
+    Object.keys(artworks).forEach(id => {
+      if (!id === selfId) {
+        if (artworks[id][type] === checkRefId) {
+          isUsed = true;
         }
       }
     });
@@ -141,22 +146,36 @@ class App extends Component {
     let count = 0;
 
     // Check if the item has already been used in another artwork
-    while (!this.itemHasBeenUsed(artworkId, type, initialId) && count < 50) {
+    while (this.itemHasBeenUsed(artworkId, type, ref) && count < 50) {
       ref = this.getRandomInteger(0, 3);
 
       // Prevent infinite loops
       count++;
-      if (count === 100) {
+      if (count === 50) {
         console.log("Too many iterations");
       }
     }
     return ref;
   };
 
-  generateRandomArtwork = (id, svgCategory, poemCategory, soundCategory) => {
-    let svgId = this.setItemRef(id, "svg", this.getRandomInteger(0, 3));
-    let poemId = this.setItemRef(id, "poem", this.getRandomInteger(0, 3));
-    let soundId = this.setItemRef(id, "sound", this.getRandomInteger(0, 3));
+  generateRandomArtwork = (
+    tabNumber,
+    svgCategory,
+    poemCategory,
+    soundCategory
+  ) => {
+    //Generate and fetch (if needed) items for an artwork.
+    let svgId = this.setItemRef(tabNumber, "svg", this.getRandomInteger(0, 3));
+    let poemId = this.setItemRef(
+      tabNumber,
+      "poem",
+      this.getRandomInteger(0, 3)
+    );
+    let soundId = this.setItemRef(
+      tabNumber,
+      "sound",
+      this.getRandomInteger(0, 3)
+    );
 
     if (!this.state.svg[svgCategory][svgId]) {
       this.fetchSvg(svgCategory, `${svgId + 1}.svg`);
@@ -167,8 +186,8 @@ class App extends Component {
 
     this.setState(state => ({
       artworks: {
-        ...this.state.artworks,
-        [id]: {
+        ...state.artworks,
+        [tabNumber]: {
           svg: svgId,
           poem: poemId,
           sound: soundId
