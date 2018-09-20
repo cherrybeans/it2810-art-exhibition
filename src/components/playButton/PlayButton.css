@@ -1,3 +1,9 @@
 .PlayButton-audio {
   width: 200px;
 }
+
+@media only screen and (min-width: 500px) {
+    .PlayButton-audio {
+        width: 300px;
+    }
+  }

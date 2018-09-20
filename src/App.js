@@ -264,7 +264,7 @@ class App extends Component {
             <pre>{poem[choices.poem][artworks[currentTab].poem]}</pre>
           </div>
           <div className="App-artwork-music">
-          <PlayButton src={sound[choices.sound][artworks[currentTab].sound]} />
+            <PlayButton src={sound[choices.sound][artworks[currentTab].sound]} />
           </div>
         </div>
       </div>
