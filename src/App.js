@@ -51,7 +51,7 @@ class App extends Component {
       choices: {
         sound: "nature",
         svg: "scary",
-        poem: "romance"
+        poem: "nature"
       },
 
       artworks: {
