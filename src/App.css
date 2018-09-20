@@ -3,17 +3,20 @@
 }
 
 body {
-  background-color: #C4DAC9;
+  background-color: #f6efe5;
+  color: #734601;
+  font-family: "Raleway", sans-serif;
 }
 
 /* Page wrapper*/
 .App-wrapper {
   width: 100vw;
-  padding: 2em;
+  padding: 0.5em 2em;
   margin: auto;
 
   display: grid;
   grid-template-rows: auto;
+  grid-row-gap: 0.5em;
   grid-template-columns: 100%;
   grid-template-areas:
     "header"
@@ -24,12 +27,12 @@ body {
     "art";
 }
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 600px) {
   .App-wrapper {
     display: grid;
     max-width: 50%;
-    grid-template-rows: repeat(1fr, 5);
-    grid-template-columns: 100%;
+    grid-template-rows: 3em;
+    grid-template-columns: 50% 50%;
     grid-template-areas:
       "header header"
       "intro intro"
@@ -43,43 +46,37 @@ body {
 .App-header {
   grid-area: header;
   width: 100%;
-  background-color: red;
+  display: flex;
+  justify-content: center;
 }
 
 .App-intro {
   grid-area: intro;
   width: 100%;
-  background-color: blue;
 }
 
 .App-categories {
   grid-area: categories;
   width: 100%;
-  background-color: orange;
 }
 
 .App-show-button {
   grid-area: showbutton;
   width: 100%;
-  background-color: purple;
 }
 
 .App-tabs {
   grid-area: tabs;
   width: 100%;
-  background-color: pink;
+  margin-bottom: 10px;
 }
 
 .App-art {
   grid-area: art;
   width: 100%;
-  background-color: white;
-
   display: flex;
   flex-wrap: wrap;
-}
-
-@media only screen and (min-width: 1000px) {
+  justify-content: center;
 }
 
 /* Content */
@@ -89,6 +86,9 @@ body {
   margin: auto;
   width: 100%;
   flex-basis: 100%;
+  background-color: whitesmoke;
+  border: 10px solid #5d5d5d;
+  border-radius: 10px;
 }
 
 .App-artwork-poem {
@@ -98,7 +98,16 @@ body {
   width: 100%;
   flex-basis: 100%;
   display: flex;
-  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.App-artwork-music {
+  margin-top: 20px;
+  border: 2px  #000000 solid;
+  border-radius: 40px;
+  background-color: #f1f3f4; 
+  padding: 2px;
 }
 
 .App-artwork-poem > pre {

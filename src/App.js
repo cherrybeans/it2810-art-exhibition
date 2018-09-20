@@ -51,7 +51,7 @@ class App extends Component {
       // The selected categories for each type of media
       choices: {
         sound: "nature",
-        svg: "scary",
+        svg: "nature",
         poem: "nature"
       },
 
@@ -294,7 +294,9 @@ class App extends Component {
           <div className="App-artwork-poem">
             <pre>{poem[choices.poem][artworks[currentTab].poem]}</pre>
           </div>
-          <PlayButton src={sound[choices.sound][artworks[currentTab].sound]} />
+          <div className="App-artwork-music">
+            <PlayButton src={sound[choices.sound][artworks[currentTab].sound]} />
+          </div>
         </div>
       </div>
     );
