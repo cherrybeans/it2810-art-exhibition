@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import PlayButton from "./components/playButton/PlayButton";
 import TabBar from "./components/tabBar/TabBar";
+import Categories from "./containers/Categories";
 
 // Filene skal lastes kun hvis de benyttes. Dvs. at filer brukt i en
 // kombinasjon først lastes når denne kombinasjonen vises (eksempelvis
@@ -77,6 +78,9 @@ class App extends Component {
     }
     document.getElementById("Music-player").load();
   };
+  updateChoices = (newChoices) => {
+    this.setState({choices: newChoices}, () => console.log("new", this.state.choices))
+  }
 
   fetchPoems = async category => {
     try {
@@ -242,7 +246,9 @@ class App extends Component {
           </p>
         </div>
 
-        <div className="App-categories">Categories</div>
+        <div className="App-categories">
+            <Categories updateChoices={this.updateChoices}/>
+        </div>
 
         <div className="App-show-button">Show me my artworks!</div>
 
