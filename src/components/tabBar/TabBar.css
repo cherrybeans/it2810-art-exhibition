@@ -1,0 +1,32 @@
+.tab-bar-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.arrow-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tab-number-container {
+    flex: 5;
+    display: flex;
+    justify-content: center;
+}
+
+.tab-number {
+    background: rgba(0,0,0,0.0);
+    border: none;
+    font-size: 16px;
+    margin: 4px 2px;
+}
+
+button:focus {
+    outline:0;
+}
+
+.tab-focus {
+    font-weight: bold;
+}

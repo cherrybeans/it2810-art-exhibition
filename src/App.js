@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
-import PlayButton from './components/PlayButton';
+import PlayButton from "./components/playButton/PlayButton";
+import TabBar from "./components/tabBar/TabBar";
 import Categories from "./containers/Categories";
 
 // Filene skal lastes kun hvis de benyttes. Dvs. at filer brukt i en
@@ -51,7 +52,7 @@ class App extends Component {
       choices: {
         sound: "nature",
         svg: "scary",
-        poem: "romance"
+        poem: "nature"
       },
 
       artworks: {
@@ -64,6 +65,19 @@ class App extends Component {
     };
   }
 
+  updateCurrentTab = tabNumber => {
+    this.setState({ currentTab: tabNumber });
+    const { artworks, choices } = this.state;
+    if (artworks[tabNumber].svg === null) {
+      this.generateRandomArtwork(
+        tabNumber,
+        choices.svg,
+        choices.poem,
+        choices.sound
+      );
+    }
+    document.getElementById("Music-player").load();
+  };
   updateChoices = (newChoices) => {
     this.setState({choices: newChoices}, () => console.log("new", this.state.choices))
   }
@@ -137,8 +151,9 @@ class App extends Component {
     let isUsed = false;
 
     Object.keys(artworks).forEach(id => {
-      if (!id === selfId) {
-        if (artworks[id][type] === checkRefId) {
+      let intId = parseInt(id);
+      if (!(intId === selfId)) {
+        if (artworks[intId][type] === checkRefId) {
           isUsed = true;
         }
       }
@@ -190,16 +205,19 @@ class App extends Component {
       this.fetchPoems(poemCategory);
     }
 
-    this.setState(state => ({
-      artworks: {
-        ...state.artworks,
-        [tabNumber]: {
-          svg: svgId,
-          poem: poemId,
-          sound: soundId
+    this.setState(
+      state => ({
+        artworks: {
+          ...state.artworks,
+          [tabNumber]: {
+            svg: svgId,
+            poem: poemId,
+            sound: soundId
+          }
         }
-      }
-    }));
+      }),
+      () => console.log(this.state.artworks)
+    );
   };
 
   componentDidMount() {
@@ -234,7 +252,12 @@ class App extends Component {
 
         <div className="App-show-button">Show me my artworks!</div>
 
-        <div className="App-tabs"> 1 2 3 4 </div>
+        <div className="App-tabs">
+          <TabBar
+            updateCurrentTab={this.updateCurrentTab}
+            currentTab={this.state.currentTab}
+          />
+        </div>
         <div className="App-art">
           <div
             className="App-artwork-media"
@@ -246,7 +269,7 @@ class App extends Component {
           <div className="App-artwork-poem">
             <pre>{poem[choices.poem][artworks[currentTab].poem]}</pre>
           </div>
-          <PlayButton src= {sound[choices.sound][artworks[currentTab].sound]}/>
+          <PlayButton src={sound[choices.sound][artworks[currentTab].sound]} />
         </div>
       </div>
     );
