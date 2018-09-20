@@ -66,7 +66,9 @@ class App extends Component {
   }
 
   updateCurrentTab = tabNumber => {
-    this.setState({ currentTab: tabNumber });
+    this.setState({ currentTab: tabNumber }, () =>
+      console.log("state after updating current tab", this.state)
+    );
     const { artworks, choices } = this.state;
     if (artworks[tabNumber].svg === null) {
       this.generateRandomArtwork(
@@ -78,9 +80,16 @@ class App extends Component {
     }
     document.getElementById("Music-player").load();
   };
-  updateChoices = (newChoices) => {
-    this.setState({choices: newChoices}, () => console.log("new", this.state.choices))
-  }
+
+  updateChoices = newChoices => {
+    console.log("I'm running too fast!");
+    this.setState({ choices: newChoices }, () => {
+      console.log("state after updating choices", this.state);
+      this.clearArtworks();
+    });
+  };
+
+  newCategories;
 
   fetchPoems = async category => {
     try {
@@ -89,17 +98,20 @@ class App extends Component {
       );
 
       let poem = await res.json();
-      this.setState(state => ({
-        poem: {
-          ...this.state.poem,
-          [category]: [
-            poem[`${category}-1`],
-            poem[`${category}-2`],
-            poem[`${category}-3`],
-            poem[`${category}-4`]
-          ]
-        }
-      }));
+      this.setState(
+        state => ({
+          poem: {
+            ...this.state.poem,
+            [category]: [
+              poem[`${category}-1`],
+              poem[`${category}-2`],
+              poem[`${category}-3`],
+              poem[`${category}-4`]
+            ]
+          }
+        }),
+        () => console.log("after fetch poems", category, this.state)
+      );
     } catch (e) {
       console.error(e);
     }
@@ -113,17 +125,20 @@ class App extends Component {
       );
 
       let svg = await res.text();
-      this.setState(state => ({
-        svg: {
-          ...this.state.svg,
-          [category]: state.svg[category].map((element, index) => {
-            if (index === mediaIndex) {
-              return svg;
-            }
-            return element;
-          })
-        }
-      }));
+      this.setState(
+        state => ({
+          svg: {
+            ...this.state.svg,
+            [category]: state.svg[category].map((element, index) => {
+              if (index === mediaIndex) {
+                return svg;
+              }
+              return element;
+            })
+          }
+        }),
+        () => console.log("after fetch svgs", category, this.state)
+      );
     } catch (e) {
       console.error(e);
     }
@@ -136,14 +151,20 @@ class App extends Component {
 
   clearArtworks = () => {
     // Run this function on generating a new set of artworks.
-    this.setState({
-      artworks: {
-        1: { svg: null, poem: null, sound: null },
-        2: { svg: null, poem: null, sound: null },
-        3: { svg: null, poem: null, sound: null },
-        4: { svg: null, poem: null, sound: null }
+    this.setState(
+      {
+        artworks: {
+          1: { svg: null, poem: null, sound: null },
+          2: { svg: null, poem: null, sound: null },
+          3: { svg: null, poem: null, sound: null },
+          4: { svg: null, poem: null, sound: null }
+        }
+      },
+      () => {
+        console.log("state after trying to clear artworks", this.state);
+        this.updateCurrentTab(1);
       }
-    });
+    );
   };
 
   itemHasBeenUsed = (selfId, type, checkRefId) => {
@@ -151,7 +172,7 @@ class App extends Component {
     let isUsed = false;
 
     Object.keys(artworks).forEach(id => {
-      let intId = parseInt(id);
+      let intId = parseInt(id, 10);
       if (!(intId === selfId)) {
         if (artworks[intId][type] === checkRefId) {
           isUsed = true;
@@ -216,7 +237,11 @@ class App extends Component {
           }
         }
       }),
-      () => console.log(this.state.artworks)
+      () =>
+        console.log(
+          "state after generating artworks (may not have fetched yet)",
+          this.state
+        )
     );
   };
 
@@ -247,7 +272,7 @@ class App extends Component {
         </div>
 
         <div className="App-categories">
-            <Categories updateChoices={this.updateChoices}/>
+          <Categories updateChoices={this.updateChoices} />
         </div>
 
         <div className="App-show-button">Show me my artworks!</div>
