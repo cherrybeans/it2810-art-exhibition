@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import PlayButton from './components/PlayButton';
 
 // Filene skal lastes kun hvis de benyttes. Dvs. at filer brukt i en
 // kombinasjon først lastes når denne kombinasjonen vises (eksempelvis
@@ -27,22 +28,22 @@ class App extends Component {
       // sound only stores the link to the soundtrack
       sound: {
         nature: [
-          "http://localhost:3000/media/sound/nature/1.mp3",
-          "http://localhost:3000/media/sound/nature/2.mp3",
-          "http://localhost:3000/media/sound/nature/3.mp3",
-          "http://localhost:3000/media/sound/nature/4.mp3"
+          "/media/sound/nature/1.mp3",
+          "/media/sound/nature/2.mp3",
+          "/media/sound/nature/3.mp3",
+          "/media/sound/nature/4.mp3"
         ],
         romance: [
-          "http://localhost:3000/media/sound/romance/1.mp3",
-          "http://localhost:3000/media/sound/romance/2.mp3",
-          "http://localhost:3000/media/sound/romance/3.mp3",
-          "http://localhost:3000/media/sound/romance/4.mp3"
+          "/media/sound/romance/1.mp3",
+          "/media/sound/romance/2.mp3",
+          "/media/sound/romance/3.mp3",
+          "/media/sound/romance/4.mp3"
         ],
         scary: [
-          "http://localhost:3000/media/sound/scary/1.mp3",
-          "http://localhost:3000/media/sound/scary/2.mp3",
-          "http://localhost:3000/media/sound/scary/3.mp3",
-          "http://localhost:3000/media/sound/scary/4.mp3"
+          "/media/sound/scary/1.mp3",
+          "/media/sound/scary/2.mp3",
+          "/media/sound/scary/3.mp3",
+          "/media/sound/scary/4.mp3"
         ]
       },
       // The selected categories for each type of media
@@ -202,7 +203,7 @@ class App extends Component {
   }
 
   render() {
-    const { poem, svg, artworks, choices } = this.state;
+    const { poem, svg, sound, artworks, choices, currentTab } = this.state;
     return (
       <div className="App-wrapper">
         <header className="App-header">
@@ -231,13 +232,14 @@ class App extends Component {
           <div
             className="App-artwork-media"
             dangerouslySetInnerHTML={{
-              __html: svg[choices.svg][artworks[1].svg]
+              __html: svg[choices.svg][artworks[currentTab].svg]
             }}
           />
 
           <div className="App-artwork-poem">
-            <pre>{poem[choices.poem][artworks[1].poem]}</pre>
+            <pre>{poem[choices.poem][artworks[currentTab].poem]}</pre>
           </div>
+          <PlayButton src= {sound[choices.sound][artworks[currentTab].sound]}/>
         </div>
       </div>
     );
