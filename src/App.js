@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
-import PlayButton from './components/PlayButton';
-import TabBar from './components/tab-bar/TabBar';
+import PlayButton from "./components/playButton/PlayButton";
+import TabBar from "./components/tabBar/TabBar";
 
 // Filene skal lastes kun hvis de benyttes. Dvs. at filer brukt i en
 // kombinasjon først lastes når denne kombinasjonen vises (eksempelvis
@@ -63,6 +63,12 @@ class App extends Component {
       }
     };
   }
+
+  updateCurrentTab = tabNumber => {
+    this.setState({ currentTab: tabNumber }, () =>
+      console.log(this.state.currentTab)
+    );
+  };
 
   fetchPoems = async category => {
     try {
@@ -228,7 +234,9 @@ class App extends Component {
 
         <div className="App-show-button">Show me my artworks!</div>
 
-        <div className="App-tabs"> <TabBar/> </div>
+        <div className="App-tabs">
+          <TabBar updateCurrentTab={this.updateCurrentTab} currentTab={this.state.currentTab}/>
+        </div>
         <div className="App-art">
           <div
             className="App-artwork-media"
@@ -240,7 +248,7 @@ class App extends Component {
           <div className="App-artwork-poem">
             <pre>{poem[choices.poem][artworks[currentTab].poem]}</pre>
           </div>
-          <PlayButton src= {sound[choices.sound][artworks[currentTab].sound]}/>
+          <PlayButton src={sound[choices.sound][artworks[currentTab].sound]} />
         </div>
       </div>
     );
