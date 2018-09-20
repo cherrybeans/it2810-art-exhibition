@@ -65,9 +65,17 @@ class App extends Component {
   }
 
   updateCurrentTab = tabNumber => {
-    this.setState({ currentTab: tabNumber }, () =>
-      console.log(this.state.currentTab)
-    );
+    this.setState({ currentTab: tabNumber });
+    const { artworks, choices } = this.state;
+    if (artworks[tabNumber].svg === null) {
+      this.generateRandomArtwork(
+        tabNumber,
+        choices.svg,
+        choices.poem,
+        choices.sound
+      );
+    }
+    document.getElementById("Music-player").load();
   };
 
   fetchPoems = async category => {
@@ -139,8 +147,9 @@ class App extends Component {
     let isUsed = false;
 
     Object.keys(artworks).forEach(id => {
-      if (!id === selfId) {
-        if (artworks[id][type] === checkRefId) {
+      let intId = parseInt(id);
+      if (!(intId === selfId)) {
+        if (artworks[intId][type] === checkRefId) {
           isUsed = true;
         }
       }
@@ -192,16 +201,19 @@ class App extends Component {
       this.fetchPoems(poemCategory);
     }
 
-    this.setState(state => ({
-      artworks: {
-        ...state.artworks,
-        [tabNumber]: {
-          svg: svgId,
-          poem: poemId,
-          sound: soundId
+    this.setState(
+      state => ({
+        artworks: {
+          ...state.artworks,
+          [tabNumber]: {
+            svg: svgId,
+            poem: poemId,
+            sound: soundId
+          }
         }
-      }
-    }));
+      }),
+      () => console.log(this.state.artworks)
+    );
   };
 
   componentDidMount() {
@@ -235,7 +247,10 @@ class App extends Component {
         <div className="App-show-button">Show me my artworks!</div>
 
         <div className="App-tabs">
-          <TabBar updateCurrentTab={this.updateCurrentTab} currentTab={this.state.currentTab}/>
+          <TabBar
+            updateCurrentTab={this.updateCurrentTab}
+            currentTab={this.state.currentTab}
+          />
         </div>
         <div className="App-art">
           <div
