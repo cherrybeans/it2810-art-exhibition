@@ -1,0 +1,19 @@
+.tab-bar-container {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.arrow-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tab-number-container {
+    flex: 5;
+    display: flex;
+    justify-content: center;
+}
+

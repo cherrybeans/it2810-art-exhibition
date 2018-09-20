@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import "./App.css";
+<<<<<<< HEAD
 import PlayButton from "./components/playButton/PlayButton";
 import TabBar from "./components/tabBar/TabBar";
+=======
+import TabBar from './components/tab-bar/TabBar';
+>>>>>>> ed4a200141afd39e9bc0d1a988034c8568bce8d0
 
 // Filene skal lastes kun hvis de benyttes. Dvs. at filer brukt i en
 // kombinasjon først lastes når denne kombinasjonen vises (eksempelvis
