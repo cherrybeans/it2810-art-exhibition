@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import CategoryCollection from "./CategoryCollection";
-import "./Categories.css";
+import CategoriesContainer from "./CategoriesContainer";
+import "./MediaCategories.css";
 
-class Categories extends Component {
+class MediaCategories extends Component {
   constructor(props) {
     super(props);
 
@@ -41,34 +41,41 @@ class Categories extends Component {
 
   render() {
     return (
-      <div className="Categories-categoryContainer">
-        <div className="Categories-categoryCollectionContainer">
+      <div className="MediaCategories-categoryContainer">
+        <div className="MediaCategories-categoryCollectionContainer">
           <span>Picture</span>
           <span>Poem</span>
           <span>Music</span>
-          <CategoryCollection
+          <CategoriesContainer
             mediaType="svg"
             updateLocalChoices={this.updateLocalChoices}
           />
-          <CategoryCollection
+          <CategoriesContainer
             mediaType="poem"
             updateLocalChoices={this.updateLocalChoices}
           />
-          <CategoryCollection
+          <CategoriesContainer
             mediaType="sound"
             updateLocalChoices={this.updateLocalChoices}
           />
         </div>
         <button
-          className='Categories-button'
+          className={
+            "MediaCategories-button" +
+            (this.isButtonDisabled() ? " " : " MediaCategories-enabled")
+          }
           onClick={() => this.updateChoices()}
           disabled={this.isButtonDisabled()}
         >
+<<<<<<< Updated upstream:src/containers/Categories.js
           Show me my artwork!
+=======
+          Show me my artworks!
+>>>>>>> Stashed changes:src/containers/MediaCategories.js
         </button>
       </div>
     );
   }
 }
 
-export default Categories;
+export default MediaCategories;

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import PlayButton from "./components/playButton/PlayButton";
 import TabBar from "./components/tabBar/TabBar";
-import Categories from "./containers/Categories";
+import MediaCategories from "./containers/MediaCategories";
 
 // Filene skal lastes kun hvis de benyttes. Dvs. at filer brukt i en
 // kombinasjon først lastes når denne kombinasjonen vises (eksempelvis
@@ -88,8 +88,6 @@ class App extends Component {
       this.clearArtworks();
     });
   };
-
-  newCategories;
 
   fetchPoems = async category => {
     try {
@@ -272,7 +270,7 @@ class App extends Component {
         </div>
 
         <div className="App-categories">
-          <Categories updateChoices={this.updateChoices} />
+          <MediaCategories updateChoices={this.updateChoices} />
         </div>
 
         <div className="App-tabs">
@@ -293,7 +291,9 @@ class App extends Component {
             <pre>{poem[choices.poem][artworks[currentTab].poem]}</pre>
           </div>
           <div className="App-artwork-music">
-            <PlayButton src={sound[choices.sound][artworks[currentTab].sound]} />
+            <PlayButton
+              src={sound[choices.sound][artworks[currentTab].sound]}
+            />
           </div>
         </div>
       </div>

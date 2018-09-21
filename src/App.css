@@ -82,6 +82,12 @@ body {
   justify-content: center;
 }
 
+@media only screen and (min-width: 800px) {
+  .App-intro {
+    padding: 1em 2em;
+  }
+}
+
 /* Content */
 
 .App-artwork-media {
@@ -89,9 +95,10 @@ body {
   margin: auto;
   width: 100%;
   flex-basis: 100%;
-  background-color: whitesmoke;
+  background-color: #f1f3f4;
   border: 10px solid #5d5d5d;
   border-radius: 10px;
+  min-height: 100%;
 }
 
 .App-artwork-poem {
