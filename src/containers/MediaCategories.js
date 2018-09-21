@@ -22,12 +22,9 @@ class MediaCategories extends Component {
   };
 
   updateLocalChoices = (mediaType, category) => {
-    this.setState(
-      state => ({
-        [mediaType]: state[mediaType] === category ? null : category
-      }),
-      () => console.log(this.state)
-    );
+    this.setState(state => ({
+      [mediaType]: state[mediaType] === category ? null : category
+    }));
   };
 
   isButtonDisabled = () => {
@@ -41,11 +38,12 @@ class MediaCategories extends Component {
 
   render() {
     return (
-      <div className="MediaCategories-categoryContainer">
-        <div className="MediaCategories-categoryCollectionContainer">
+      <div className="MediaCategories-wrapper">
+        <div className="MediaCategories-categoryset-wrapper">
           <span>Picture</span>
           <span>Poem</span>
           <span>Music</span>
+
           <CategoriesContainer
             mediaType="svg"
             updateLocalChoices={this.updateLocalChoices}
@@ -59,6 +57,7 @@ class MediaCategories extends Component {
             updateLocalChoices={this.updateLocalChoices}
           />
         </div>
+
         <button
           className={
             "MediaCategories-button" +
@@ -67,11 +66,7 @@ class MediaCategories extends Component {
           onClick={() => this.updateChoices()}
           disabled={this.isButtonDisabled()}
         >
-<<<<<<< Updated upstream:src/containers/Categories.js
-          Show me my artwork!
-=======
           Show me my artworks!
->>>>>>> Stashed changes:src/containers/MediaCategories.js
         </button>
       </div>
     );

@@ -17,7 +17,6 @@ class CategoriesContainer extends Component {
 
   categorySelected = category => {
     /* Toggle state by which category was clicked, only one can be selected at a time */
-    let buttonState;
     switch (category) {
       case "nature":
         this.setState(
@@ -71,7 +70,7 @@ class CategoriesContainer extends Component {
 
   render() {
     return (
-      <div className="CategoriesContainer-categoryButtonContainer">
+      <div className="CategoriesContainer-wrapper">
         <button
           className={this.generateClassName("nature")}
           onClick={() => this.categorySelected("nature")}

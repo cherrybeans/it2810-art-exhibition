@@ -1,19 +1,17 @@
 import React, { Component } from "react";
-import "./App.css";
-import PlayButton from "./components/playButton/PlayButton";
-import TabBar from "./components/tabBar/TabBar";
+
 import MediaCategories from "./containers/MediaCategories";
 
-// Filene skal lastes kun hvis de benyttes. Dvs. at filer brukt i en
-// kombinasjon først lastes når denne kombinasjonen vises (eksempelvis
-// når en bruker velger denne tabben).
+import PlaceholderSvg from "./components/placeholderSvg/PlaceholderSvg";
+import PlayButton from "./components/playButton/PlayButton";
+import TabBar from "./components/tabBar/TabBar";
+
+import "./App.css";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      isLoaded: false,
-      error: null,
       currentTab: 1,
 
       // Storing of data. Once fetched, it is stored here.
@@ -48,15 +46,15 @@ class App extends Component {
           "/media/sound/scary/4.mp3"
         ]
       },
-      // The selected categories for each type of media
+      // The selected categories for each type of media.
       choices: {
-        sound: "nature",
+        sound: "romance",
         svg: "nature",
-        poem: "nature"
+        poem: "scary"
       },
 
       artworks: {
-        // Tab 1, 2, 3, 4. Reference to the elements
+        // Tab 1, 2, 3, 4. Stores references to the elements
         1: { svg: null, poem: null, sound: null },
         2: { svg: null, poem: null, sound: null },
         3: { svg: null, poem: null, sound: null },
@@ -66,10 +64,10 @@ class App extends Component {
   }
 
   updateCurrentTab = tabNumber => {
-    this.setState({ currentTab: tabNumber }, () =>
-      console.log("state after updating current tab", this.state)
-    );
     const { artworks, choices } = this.state;
+
+    this.setState({ currentTab: tabNumber });
+
     if (artworks[tabNumber].svg === null) {
       this.generateRandomArtwork(
         tabNumber,
@@ -78,73 +76,8 @@ class App extends Component {
         choices.sound
       );
     }
+    // Have to force reload the audio player for it to keep up with changes
     document.getElementById("Music-player").load();
-  };
-
-  updateChoices = newChoices => {
-    console.log("I'm running too fast!");
-    this.setState({ choices: newChoices }, () => {
-      console.log("state after updating choices", this.state);
-      this.clearArtworks();
-    });
-  };
-
-  fetchPoems = async category => {
-    try {
-      let res = await fetch(
-        `http://localhost:3000/media/poem/${category}/${category}.json`
-      );
-
-      let poem = await res.json();
-      this.setState(
-        state => ({
-          poem: {
-            ...this.state.poem,
-            [category]: [
-              poem[`${category}-1`],
-              poem[`${category}-2`],
-              poem[`${category}-3`],
-              poem[`${category}-4`]
-            ]
-          }
-        }),
-        () => console.log("after fetch poems", category, this.state)
-      );
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  fetchSvg = async (category, fileName) => {
-    let mediaIndex = parseInt(fileName[0], 10) - 1;
-    try {
-      let res = await fetch(
-        `http://localhost:3000/media/svg/${category}/${fileName}`
-      );
-
-      let svg = await res.text();
-      this.setState(
-        state => ({
-          svg: {
-            ...this.state.svg,
-            [category]: state.svg[category].map((element, index) => {
-              if (index === mediaIndex) {
-                return svg;
-              }
-              return element;
-            })
-          }
-        }),
-        () => console.log("after fetch svgs", category, this.state)
-      );
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  getRandomInteger = (min, max) => {
-    // Returns a random number between min and max (inclusive)
-    return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
   clearArtworks = () => {
@@ -159,10 +92,66 @@ class App extends Component {
         }
       },
       () => {
-        console.log("state after trying to clear artworks", this.state);
         this.updateCurrentTab(1);
       }
     );
+  };
+
+  updateChoices = newChoices => {
+    this.setState({ choices: newChoices }, () => {
+      this.clearArtworks();
+    });
+  };
+
+  fetchPoems = async category => {
+    try {
+      let res = await fetch(
+        `http://localhost:3000/media/poem/${category}/${category}.json`
+      );
+
+      let poem = await res.json();
+
+      // Once you fetch the poems of a category once, store all of them.
+      this.setState(state => ({
+        poem: {
+          ...this.state.poem,
+          [category]: [
+            poem[`${category}-1`],
+            poem[`${category}-2`],
+            poem[`${category}-3`],
+            poem[`${category}-4`]
+          ]
+        }
+      }));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  fetchSvg = async (category, fileName) => {
+    // For knowing where in the "database" state the fetched image should be stored
+    let mediaIndex = parseInt(fileName[0], 10) - 1;
+
+    try {
+      let res = await fetch(
+        `http://localhost:3000/media/svg/${category}/${fileName}`
+      );
+
+      let svg = await res.text();
+      this.setState(state => ({
+        svg: {
+          ...this.state.svg,
+          [category]: state.svg[category].map((element, index) => {
+            if (index === mediaIndex) {
+              return svg;
+            }
+            return element;
+          })
+        }
+      }));
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   itemHasBeenUsed = (selfId, type, checkRefId) => {
@@ -179,6 +168,11 @@ class App extends Component {
     });
 
     return isUsed;
+  };
+
+  getRandomInteger = (min, max) => {
+    // Returns a random number between min and max (inclusive)
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
   setItemRef = (artworkId, type, initialId) => {
@@ -224,48 +218,48 @@ class App extends Component {
       this.fetchPoems(poemCategory);
     }
 
-    this.setState(
-      state => ({
-        artworks: {
-          ...state.artworks,
-          [tabNumber]: {
-            svg: svgId,
-            poem: poemId,
-            sound: soundId
-          }
+    this.setState(state => ({
+      artworks: {
+        ...state.artworks,
+        [tabNumber]: {
+          svg: svgId,
+          poem: poemId,
+          sound: soundId
         }
-      }),
-      () =>
-        console.log(
-          "state after generating artworks (may not have fetched yet)",
-          this.state
-        )
-    );
+      }
+    }));
+  };
+
+  hasLoadedImage = () => {
+    const { svg, choices, artworks, currentTab } = this.state;
+    return svg[choices.svg][artworks[currentTab].svg] !== null;
   };
 
   componentDidMount() {
     const { choices } = this.state;
+    // Initialize a random artwork on page load.
     this.generateRandomArtwork(1, choices.svg, choices.poem, choices.sound);
   }
 
   render() {
     const { poem, svg, sound, artworks, choices, currentTab } = this.state;
+
     return (
       <div className="App-wrapper">
         <header className="App-header">
           <h1 className="App-title">Random art generator</h1>
         </header>
+
         <div className="App-intro">
           <p>
             This is an artwork generator that lets you select different
             categories for sound, image and poem, and this page generates a
             piece of art based on your choices.
           </p>
-
           <p>
-            To get started: <br />
-            Step 1: Choose categories <br />
-            Step 2: Press the "Show me my artworks!"-button
+            <u>To get started:</u> <br />
+            <b>Step 1:</b> Choose categories <br />
+            <b>Step 2:</b> Press the "Show me my artworks!"-button
           </p>
         </div>
 
@@ -279,17 +273,25 @@ class App extends Component {
             currentTab={this.state.currentTab}
           />
         </div>
+
         <div className="App-art">
-          <div
-            className="App-artwork-media"
-            dangerouslySetInnerHTML={{
-              __html: svg[choices.svg][artworks[currentTab].svg]
-            }}
-          />
+          {this.hasLoadedImage() ? (
+            <div
+              className="App-artwork-media"
+              dangerouslySetInnerHTML={{
+                __html: svg[choices.svg][artworks[currentTab].svg]
+              }}
+            />
+          ) : (
+            <div className="App-artwork-media">
+              <PlaceholderSvg />
+            </div>
+          )}
 
           <div className="App-artwork-poem">
             <pre>{poem[choices.poem][artworks[currentTab].poem]}</pre>
           </div>
+
           <div className="App-artwork-music">
             <PlayButton
               src={sound[choices.sound][artworks[currentTab].sound]}
