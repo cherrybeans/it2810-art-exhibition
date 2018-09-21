@@ -41,7 +41,7 @@ The website generates 4 artworks for each art exhibit, where each artwork consis
 ### React:
 The project is based on React-components, using ES6 syntax. Only ordinary mechanisms in react were allowed, so no external libraries are used. For this project we made all components completely from scratch, without the use of third-party components.
 ### AJAX:
-We have used the Fetch API with async/await that comes with ES7 to handle asynchronous fetching. The photos and poems are loaded dynamically only when they are needed, and then saved in the client. This way we avoid unnecessary storing of data. 
+We have used the Fetch API with async/await that comes with ES7 to handle asynchronous fetching. The photos and poems are loaded dynamically only when they are needed, and then saved in the client. This way we avoid unnecessary storing of data. A placeholder-svg is used to avoid elements jumping around while the website waits for the fetch to complete. 
 ### Responsive web design:
 The web page is dynamic and responsive, and will adjust to different screen sizes and orientations. This is accomplished mainly by the use of flexbox, grid and media queries. 
 
