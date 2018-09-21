@@ -38,24 +38,23 @@ The website generates 4 artworks for each art exhibit, where each artwork consis
 
 # Technical Requirements
 
-### React:
+### React
 The project is based on React-components, using ES6 syntax. Only ordinary mechanisms in react were allowed, so no external libraries are used. For this project we made all components completely from scratch, without the use of third-party components.
-### AJAX:
+### AJAX
 We have used the Fetch API with async/await that comes with ES7 to handle asynchronous fetching. The photos and poems are loaded dynamically only when they are needed, and then saved in the client. This way we avoid unnecessary storing of data. A placeholder-svg is used to avoid elements jumping around while the website waits for the fetch to complete. 
-### Responsive web design:
+### Responsive web design
 The web page is dynamic and responsive, and will adjust to different screen sizes and orientations. This is accomplished mainly by the use of flexbox, grid and media queries. 
 
 The responsiveness of our website is handled through App.css. This is where we define our CSS Grid and CSS Flexboxes along with general styling. The file is structured with sections marked by  /* Comments */. 
 
 Check the other .css files for more of the detailed styling and positioning of specific components and containers.
-### GIT & General code structure:
+### GIT & General code structure
 We have used the project board in git to organise the issues. The issues have been assigned to a person, and moved to in progress when started then to done when task completed. The commits have been connected to its corresponding issue. 
-### Node.js & NPM:
+### Node.js & NPM
 We used create-react-app to create the project, and then used npm install + npm start to run the project in browser. 
 
 
 # Testing
-
 In this project we have employed a manual systematic testing scheme:
 * The website has been tested on multiple browsers: Google Chrome, Mozilla Firefox and Safari.
 * The website has been tested on different screen sizes: Mobile (down to 360x640), Laptop and Desktop monitors of various sizes. 
