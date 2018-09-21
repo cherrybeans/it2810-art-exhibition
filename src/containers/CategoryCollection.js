@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import "./CategoryCollection.css";
 
 class CategoryCollection extends Component {
     constructor(props){
@@ -46,11 +46,10 @@ class CategoryCollection extends Component {
 
     render() {
         return (
-            <div>
-
-                <button onClick={() => this.categorySelected("nature")}>nature</button>
-                <button onClick={() => this.categorySelected("romance")}>romance</button>
-                <button onClick={() => this.categorySelected("scary")}>scary</button>
+            <div className='CategoryCollection-categoryButtonContainer'>
+                <button className='CategoryCollection-categoryButton' onClick={() => this.categorySelected("nature")}>nature</button>
+                <button className='CategoryCollection-categoryButton' onClick={() => this.categorySelected("romance")}>romance</button>
+                <button className='CategoryCollection-categoryButton' onClick={() => this.categorySelected("scary")}>scary</button>
             </div>
         );
     }

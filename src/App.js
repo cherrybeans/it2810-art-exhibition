@@ -275,8 +275,6 @@ class App extends Component {
           <Categories updateChoices={this.updateChoices} />
         </div>
 
-        <div className="App-show-button">Show me my artworks!</div>
-
         <div className="App-tabs">
           <TabBar
             updateCurrentTab={this.updateCurrentTab}

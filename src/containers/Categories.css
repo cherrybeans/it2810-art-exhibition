@@ -1,0 +1,32 @@
+.Categories-categoryContainer {
+ display: flex;
+ background-color: #73460140;
+ border-radius: 25px;
+ padding: 10px;
+ align-items: center;
+ justify-content: space-around;
+}
+
+.Categories-categoryCollectionContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+}
+
+.Categories-categoryCollectionContainer > span {
+    text-align: center;
+}
+
+.Categories-button {
+    height: 45px;
+    font-size: 15px;
+    border: none;
+    font-size: 16px;
+    margin-left: 10px;
+    background-color: #734601;
+    padding: 5px 10px;;
+    display: flex;
+    color:#f1f3f4;
+    justify-content: center;
+    border-radius: 15px;
+}
