@@ -14,43 +14,53 @@ const TabBar = ({ updateCurrentTab, currentTab }) => {
     }
   };
 
+  const generateClassName = tab => {
+    return "TabBar-number" + (currentTab === tab ? " TabBar-selectedTab" : " ");
+  };
+
   return (
-    <div className="tab-bar-container">
-      <div className="arrow-container">
-        <i onClick={() => decreaseTab()} className="fas fa-angle-left" />
+    <div className="TabBar-wrapper">
+      <div className="TabBar-arrow-wrapper">
+        <i
+          onClick={() => decreaseTab()}
+          className="TabBar-icon fas fa-angle-left"
+        />
       </div>
-      <div className="tab-number-container">
+      <div className="TabBar-number-wrapper">
         <button
           onClick={() => updateCurrentTab(1)}
-          className={"tab-number" + (currentTab === 1 ? " tab-focus" : " ")}
+          className={generateClassName(1)}
           id="button-1"
         >
           1
         </button>
         <button
           onClick={() => updateCurrentTab(2)}
-          className={"tab-number" + (currentTab === 2 ? " tab-focus" : " ")}
+          className={generateClassName(2)}
           id="button-2"
         >
           2
         </button>
         <button
           onClick={() => updateCurrentTab(3)}
-          className={"tab-number" + (currentTab === 3 ? " tab-focus" : " ")}
+          className={generateClassName(3)}
           id="button-3"
         >
           3
         </button>
         <button
           onClick={() => updateCurrentTab(4)}
-          className={"tab-number" + (currentTab === 4 ? " tab-focus" : " ")}
+          className={generateClassName(4)}
           id="button-4"
         >
           4
         </button>
       </div>
-      <div className="arrow-container">
-        <i onClick={() => increaseTab()} className="fas fa-angle-right" />
+      <div className="TabBar-arrow-wrapper">
+        <i
+          onClick={() => increaseTab()}
+          className="TabBar-icon fas fa-angle-right"
+        />
       </div>
     </div>
   );

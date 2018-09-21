@@ -1,37 +1,40 @@
-.tab-bar-container {
-    display: flex;
-    flex-direction: row;
-    background-color: #73460140;
-    border-radius: 20px;
+.TabBar-wrapper {
+  display: flex;
+  flex-direction: row;
+  background-color: #73460140;
+  border-radius: 20px;
 }
 
-.arrow-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.TabBar-arrow-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.tab-number-container {
-    flex: 5;
-    display: flex;
-    justify-content: center;
+.TabBar-number-wrapper {
+  flex: 5;
+  display: flex;
+  justify-content: center;
 }
 
-.tab-number {
-    background: rgba(0,0,0,0.0);
-    border: none;
-    font-size: 16px;
-    margin: 4px 2px;
-    color: #734601;
-    padding: 5px 10px;;
-
+.TabBar-number {
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  font-size: 16px;
+  margin: 0 0.5em;
+  color: #734601;
+  padding: 0.5em 0.7em;
 }
 
-button:focus {
-    outline:0;
+.TabBar-selectedTab {
+  font-weight: bold;
 }
 
-.tab-focus {
-    font-weight: bold;
+.TabBar-icon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

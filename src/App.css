@@ -8,6 +8,10 @@ body {
   font-family: "Raleway", sans-serif;
 }
 
+button:focus {
+  outline: 0;
+}
+
 /* Page wrapper*/
 .App-wrapper {
   width: 100vw;
@@ -47,7 +51,7 @@ body {
   }
 }
 
-/* Grid area wrappers */
+/* Grid area wrappers (sections) */
 
 .App-header {
   grid-area: header;
@@ -59,6 +63,7 @@ body {
 .App-intro {
   grid-area: intro;
   width: 100%;
+  justify-self: center;
 }
 
 .App-categories {
@@ -88,6 +93,12 @@ body {
   }
 }
 
+@media only screen and (min-width: 1300px) {
+  .App-intro {
+    width: 60%;
+  }
+}
+
 /* Content */
 
 .App-artwork-media {
@@ -96,9 +107,9 @@ body {
   width: 100%;
   flex-basis: 100%;
   background-color: #f1f3f4;
-  border: 10px solid #5d5d5d;
+  border: 10px solid #734601;
   border-radius: 10px;
-  min-height: 100%;
+  min-height: 300px;
 }
 
 .App-artwork-poem {
@@ -115,7 +126,7 @@ body {
 
 .App-artwork-music {
   margin: 20px;
-  border: 2px #000000 solid;
+  border: 2px black solid;
   border-radius: 40px;
   background-color: #f1f3f4;
   padding: 2px;

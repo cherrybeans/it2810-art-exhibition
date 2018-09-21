@@ -12,7 +12,8 @@ const PlayButton = ({ src }) => {
       preload="auto"
     >
       <source src={src} />
-      This text displays if the audio tag isn't supported.
+      The sound we put here could not be played since your browser does not
+      support the audio tag.
     </audio>
   );
 };
