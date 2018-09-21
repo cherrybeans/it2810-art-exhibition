@@ -105,9 +105,7 @@ class App extends Component {
 
   fetchPoems = async category => {
     try {
-      let res = await fetch(
-        `http://localhost:3000/media/poem/${category}/${category}.json`
-      );
+      let res = await fetch(`/media/poem/${category}/${category}.json`);
 
       let poem = await res.json();
 
@@ -133,9 +131,7 @@ class App extends Component {
     let mediaIndex = parseInt(fileName[0], 10) - 1;
 
     try {
-      let res = await fetch(
-        `http://localhost:3000/media/svg/${category}/${fileName}`
-      );
+      let res = await fetch(`/media/svg/${category}/${fileName}`);
 
       let svg = await res.text();
       this.setState(state => ({
