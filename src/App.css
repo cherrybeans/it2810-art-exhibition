@@ -126,9 +126,6 @@ button:focus {
 
 .App-artwork-music {
   margin: 20px;
-  border: 2px black solid;
-  border-radius: 40px;
-  background-color: #f1f3f4;
   padding: 2px;
 }
 
