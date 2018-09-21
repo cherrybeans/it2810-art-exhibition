@@ -1,0 +1,38 @@
+.MediaCategories-categoryContainer {
+  display: flex;
+  background-color: #73460140;
+  border-radius: 25px;
+  padding: 10px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.MediaCategories-categoryCollectionContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+}
+
+.MediaCategories-categoryCollectionContainer > span {
+  text-align: center;
+}
+
+.MediaCategories-button {
+  height: 45px;
+  font-size: 15px;
+  border: none;
+  font-size: 16px;
+  margin-left: 10px;
+  background-color: #f1f3f4;
+  padding: 5px 10px;
+  display: flex;
+  color: gray;
+  justify-content: center;
+  border-radius: 15px;
+  opacity: 0.5;
+}
+
+.MediaCategories-enabled {
+  color: #734601;
+  opacity: 1;
+}

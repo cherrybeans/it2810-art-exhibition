@@ -22,7 +22,6 @@ body {
     "header"
     "intro"
     "categories"
-    "showbutton"
     "tabs"
     "art";
 }
@@ -30,7 +29,7 @@ body {
 @media only screen and (min-width: 600px) {
   .App-wrapper {
     display: grid;
-    max-width: 50%;
+    max-width: 80%;
     grid-template-rows: 3em;
     grid-template-columns: 50% 50%;
     grid-template-areas:
@@ -38,9 +37,16 @@ body {
       "intro intro"
       "tabs tabs"
       "art art"
-      "categories showbutton";
+      "categories categories";
   }
 }
+
+@media only screen and (min-width: 800px) {
+  .App-wrapper {
+    max-width: 60%;
+  }
+}
+
 /* Grid area wrappers */
 
 .App-header {
@@ -58,11 +64,8 @@ body {
 .App-categories {
   grid-area: categories;
   width: 100%;
-}
-
-.App-show-button {
-  grid-area: showbutton;
-  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .App-tabs {
@@ -79,6 +82,12 @@ body {
   justify-content: center;
 }
 
+@media only screen and (min-width: 800px) {
+  .App-intro {
+    padding: 1em 2em;
+  }
+}
+
 /* Content */
 
 .App-artwork-media {
@@ -86,9 +95,10 @@ body {
   margin: auto;
   width: 100%;
   flex-basis: 100%;
-  background-color: whitesmoke;
+  background-color: #f1f3f4;
   border: 10px solid #5d5d5d;
   border-radius: 10px;
+  min-height: 100%;
 }
 
 .App-artwork-poem {
@@ -100,13 +110,14 @@ body {
   display: flex;
   text-align: center;
   justify-content: center;
+  font-style: italic;
 }
 
 .App-artwork-music {
-  margin-top: 20px;
-  border: 2px  #000000 solid;
+  margin: 20px;
+  border: 2px #000000 solid;
   border-radius: 40px;
-  background-color: #f1f3f4; 
+  background-color: #f1f3f4;
   padding: 2px;
 }
 

@@ -1,0 +1,24 @@
+.CategoryCollection-categoryButtonContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.CategoryCollection-categoryButton {
+    border: none;
+    font-size: 16px;
+    margin: 5px;
+    color: #734601;
+    padding: 5px 10px;;
+    display: flex;
+    background-color:#f1f3f4;
+    justify-content: center;
+    text-transform: capitalize;
+    border-radius: 10px;
+}
+
+.CategoryCollection-selectedButton {
+    background-color: #734601;
+    color: #f1f3f4;;
+}
+
+
