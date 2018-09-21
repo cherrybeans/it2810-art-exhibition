@@ -64,7 +64,7 @@ class Categories extends Component {
           onClick={() => this.updateChoices()}
           disabled={this.isButtonDisabled()}
         >
-          Show the art!
+          Show me my artwork!
         </button>
       </div>
     );
