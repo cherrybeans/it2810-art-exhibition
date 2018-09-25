@@ -28,22 +28,22 @@ class App extends Component {
       // sound only stores the link to the soundtrack
       sound: {
         nature: [
-          "/media/sound/nature/1.mp3",
-          "/media/sound/nature/2.mp3",
-          "/media/sound/nature/3.mp3",
-          "/media/sound/nature/4.mp3"
+          "./media/sound/nature/1.mp3",
+          "./media/sound/nature/2.mp3",
+          "./media/sound/nature/3.mp3",
+          "./media/sound/nature/4.mp3"
         ],
         romance: [
-          "/media/sound/romance/1.mp3",
-          "/media/sound/romance/2.mp3",
-          "/media/sound/romance/3.mp3",
-          "/media/sound/romance/4.mp3"
+          "./media/sound/romance/1.mp3",
+          "./media/sound/romance/2.mp3",
+          "./media/sound/romance/3.mp3",
+          "./media/sound/romance/4.mp3"
         ],
         scary: [
-          "/media/sound/scary/1.mp3",
-          "/media/sound/scary/2.mp3",
-          "/media/sound/scary/3.mp3",
-          "/media/sound/scary/4.mp3"
+          "./media/sound/scary/1.mp3",
+          "./media/sound/scary/2.mp3",
+          "./media/sound/scary/3.mp3",
+          "./media/sound/scary/4.mp3"
         ]
       },
       // The selected categories for each type of media.
@@ -105,7 +105,7 @@ class App extends Component {
 
   fetchPoems = async category => {
     try {
-      let res = await fetch(`/media/poem/${category}/${category}.json`);
+      let res = await fetch(`./media/poem/${category}/${category}.json`);
 
       let poem = await res.json();
 
@@ -131,7 +131,7 @@ class App extends Component {
     let mediaIndex = parseInt(fileName[0], 10) - 1;
 
     try {
-      let res = await fetch(`/media/svg/${category}/${fileName}`);
+      let res = await fetch(`./media/svg/${category}/${fileName}`);
 
       let svg = await res.text();
       this.setState(state => ({

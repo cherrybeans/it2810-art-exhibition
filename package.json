@@ -1,6 +1,6 @@
 {
-  "homepage": "http://it2810-01.idi.ntnu.no/prosjekt2",
-  "name": "it2810-webutvikling-h18-prosjekt-2-gruppe--01",
+  "homepage": "https://cherrybeans.github.io/it2810-art-exhibition/",
+  "name": "it2810-art-exhibition",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,6 +13,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages-d build"
   }
 }
